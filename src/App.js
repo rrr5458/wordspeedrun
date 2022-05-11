@@ -7,6 +7,7 @@ import { boardDefault, generateWordSet } from './components/Words';
 import GameOver from './components/GameOver';
 import StopWatch from './components/StopWatch';
 import GameTimes from './components/GameTimes';
+import StreakSelector from './components/StreakSelector';
 
 
 export const AppContext = createContext();
@@ -28,20 +29,19 @@ function App() {
   const [gameTimes, setGameTimes] = useState([])
   const [timesTotal, setTimesTotal] = useState(0)
   const [guessesInAttempt, setGuessesInAttempt] = useState([])
-  const [streakLimit, setStreakLimit] = useState(4)
+  const [streakLimit, setStreakLimit] = useState(0)
+  const [bang, setBang] = useState(false)
 
 
   useEffect(() => {
 
-    setRunning(true)
+    if (bang) {
+      setRunning(true)
+    }
 
-  }, [gameCount])
 
-  useEffect(() => {
+  }, [bang, gameCount])
 
-    console.log(timesTotal)
-
-  }, [timesTotal])
 
   useEffect(() => {
     generateWordSet().then((words) => {
@@ -64,6 +64,7 @@ function App() {
     }
     setDuplicates(finalArray)
   }, [correctWord])
+
 
   const onSelectLetter = (keyValue) => {
     if (currentAttempt.letterPosition > 4) return
@@ -93,7 +94,6 @@ function App() {
 
   const onEnter = () => {
     console.log(correctWord)
-    console.log(timesTotal)
     if (currentAttempt.letterPosition !== 5) return;
     let currentWord = ""
     for (let i = 0; i < 5; i++) {
@@ -170,13 +170,16 @@ function App() {
     setCorrectLetters([])
     setAlmostLetters([])
     setGuessesInAttempt([])
+    setBang(false)
   }
 
   return (
     <div className="App">
       <header className="App-header">
         <nav>
+          <div id="empty-space"> </div>
           <h1>Wordle</h1>
+          <StreakSelector setStreakLimit={setStreakLimit} streakLimit={streakLimit} setBang={setBang}/>
         </nav>
         <AppContext.Provider value={{
           board,
@@ -198,7 +201,6 @@ function App() {
           setAlmostLetters,
           duplicates,
           guessesInAttempt,
-
         }}>
           <div className="game" >
             <div class="board-watch">

@@ -27,39 +27,6 @@ function Letter({ letterPosition, attemptValue }) {
     }
 
 
-
-
-
-    // if (correctWord[letterPosition] === letter) {
-    //     correct = true
-
-    // } else if (correctWord.includes(letter) && duplicates.length === 0) {
-    //     if (guessesInAttempt[attemptValue] !== undefined) {
-    //         if (guessesInAttempt[attemptValue].split(letter).length - 1 === 1) {
-    //                 almostSecond = true
-
-    //         } else if (guessesInAttempt[attemptValue].split(letter).length - 1 === 2) {
-    //             almost = true
-    //         } else {
-    //             error = true
-    //         }
-    //     }
-
-    // } else if (correctWord.includes(letter) && duplicates.length === 1) {
-    //     almost = true
-    // } else if (correctWord.includes(letter)) {
-    //     if (guessesInAttempt[attemptValue] !== undefined) {
-    //         if (guessesInAttempt[attemptValue].indexOf(letter) < letterPosition) {
-    //             error = true
-    //         } else {
-    //             almost = true
-    //         }
-    //     }
-    // } else {
-    //     error = true
-    // }
-
-
     const letterState =
         currentAttempt.attempt > attemptValue &&
         (correct ? "correct" : almost ? "almost" : almostSecond ? "almost-second" : "error");
