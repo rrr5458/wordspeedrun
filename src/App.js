@@ -8,6 +8,7 @@ import GameOver from './components/GameOver';
 import StopWatch from './components/StopWatch';
 import GameTimes from './components/GameTimes';
 import StreakSelector from './components/StreakSelector';
+import Modal from './components/Modal';
 
 
 export const AppContext = createContext();
@@ -31,11 +32,21 @@ function App() {
   const [guessesInAttempt, setGuessesInAttempt] = useState([])
   const [streakLimit, setStreakLimit] = useState(0)
   const [bang, setBang] = useState(false)
+  const [endModal, setEndModal] = useState(false)
 
 
   useEffect(() => {
 
     if (bang) {
+      setDisabledLetters([])
+      setBoard([
+        ["", "", "", "", ""],
+        ["", "", "", "", ""],
+        ["", "", "", "", ""],
+        ["", "", "", "", ""],
+        ["", "", "", "", ""],
+        ["", "", "", "", ""],
+      ])
       setRunning(true)
     }
 
@@ -110,6 +121,7 @@ function App() {
     if (currentWord === correctWord) {
       if (gameCount === streakLimit) {
         endGame()
+        setEndModal(true)
         setTimesTotal(addTimes(gameTimes))
         setGameTimes([])
 
@@ -142,7 +154,7 @@ function App() {
       ["", "", "", "", ""],
       ["", "", "", "", ""],
       ["", "", "", "", ""],
-    ])
+  ])
     setCurrentAttempt({ attempt: 0, letterPosition: 0 })
     setGameOver({ gameOver: false, guessedWord: false })
     setDisabledLetters([])
@@ -156,31 +168,21 @@ function App() {
     setTime(0)
     setGameCount(0)
     setRunning(false)
-    setBoard([
-      ["", "", "", "", ""],
-      ["", "", "", "", ""],
-      ["", "", "", "", ""],
-      ["", "", "", "", ""],
-      ["", "", "", "", ""],
-      ["", "", "", "", ""],
-    ])
+    setBoard(boardDefault)
     setCurrentAttempt({ attempt: 0, letterPosition: 0 })
     setGameOver({ gameOver: false, guessedWord: false })
     setDisabledLetters([])
     setCorrectLetters([])
     setAlmostLetters([])
     setGuessesInAttempt([])
+    setStreakLimit(0)
     setBang(false)
+    setRunning(false)
   }
 
   return (
     <div className="App">
       <header className="App-header">
-        <nav>
-          <div id="empty-space"> </div>
-          <h1>Wordle</h1>
-          <StreakSelector setStreakLimit={setStreakLimit} streakLimit={streakLimit} setBang={setBang}/>
-        </nav>
         <AppContext.Provider value={{
           board,
           setBoard,
@@ -202,10 +204,18 @@ function App() {
           duplicates,
           guessesInAttempt,
         }}>
+        <nav>
+          <div id="empty-space"> </div>
+          <h1>Wordle</h1>
+          <StreakSelector setStreakLimit={setStreakLimit} streakLimit={streakLimit} setBang={setBang}/>
+        </nav>
           <div className="game" >
             <div class="board-watch">
               <GameTimes class="watches" gameTimes={gameTimes} />
               <Board />
+              {endModal &&
+                <Modal gameTimes={gameTimes} timesTotal={timesTotal} setEndModal={setEndModal}/>
+              }
               <div class="watches">
                 <StopWatch running={running} time={time} setTime={setTime} />
               </div>
