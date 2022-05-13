@@ -48,10 +48,12 @@ function App() {
         ["", "", "", "", ""],
       ])
       setRunning(true)
+      setGameTimes([])
+      setTimesTotal(0)
     }
 
 
-  }, [bang, gameCount])
+  }, [bang])
 
 
   useEffect(() => {
@@ -120,10 +122,10 @@ function App() {
 
     if (currentWord === correctWord) {
       if (gameCount === streakLimit) {
+        setGameTimes((prev) => [...prev, time])
         endGame()
         setEndModal(true)
         setTimesTotal(addTimes(gameTimes))
-        setGameTimes([])
 
         return;
       } else
@@ -138,7 +140,6 @@ function App() {
     if (currentAttempt.attempt === 5) {
       setRunning(false)
       setGameOver({ gameOver: true, guessedWord: false })
-      setGameTimes([])
       newGame()
     }
 
@@ -162,6 +163,7 @@ function App() {
     setAlmostLetters([])
     setTime(0)
     setGuessesInAttempt([])
+    setRunning(true)
   }
 
   const endGame = () => {
