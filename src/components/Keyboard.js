@@ -60,7 +60,7 @@ function Keyboard() {
                 <Key keyValue={"ENTER"} bigKey={true} />
                 {
                     keys3.map((key) => {
-                        return <Key keyValue={key} bigKey={true} disabled={disabledLetters.includes(key)} correct={correctLetters.includes(key)} almost={almostLetters.includes(key)} />
+                        return <Key keyValue={key} disabled={disabledLetters.includes(key)} correct={correctLetters.includes(key)} almost={almostLetters.includes(key)} />
                     })}
                 <Key keyValue={"DEL"} />
             </div>

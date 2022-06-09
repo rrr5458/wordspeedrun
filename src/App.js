@@ -28,7 +28,6 @@ function App() {
   const [running, setRunning] = useState(false);
   const [time, setTime] = useState(0);
   const [gameTimes, setGameTimes] = useState([])
-  const [timesTotal, setTimesTotal] = useState(0)
   const [guessesInAttempt, setGuessesInAttempt] = useState([])
   const [streakLimit, setStreakLimit] = useState(0)
   const [bang, setBang] = useState(false)
@@ -36,8 +35,9 @@ function App() {
 
 
   useEffect(() => {
-
+    console.log(bang)
     if (bang) {
+      console.log(bang, 'here?')
       setDisabledLetters([])
       setBoard([
         ["", "", "", "", ""],
@@ -49,7 +49,6 @@ function App() {
       ])
       setRunning(true)
       setGameTimes([])
-      setTimesTotal(0)
     }
 
 
@@ -89,13 +88,6 @@ function App() {
 
   }
 
-  const addTimes = (gameTimes) => {
-    let total = 0
-    gameTimes.map((t) => {
-      total += t
-    })
-    return total
-  }
 
   const onDelete = () => {
     if (currentAttempt.letterPosition === 0) return;
@@ -106,6 +98,7 @@ function App() {
   }
 
   const onEnter = () => {
+
     console.log(correctWord)
     if (currentAttempt.letterPosition !== 5) return;
     let currentWord = ""
@@ -121,15 +114,15 @@ function App() {
     }
 
     if (currentWord === correctWord) {
+      setBang(false)
       if (gameCount === streakLimit) {
         setGameTimes((prev) => [...prev, time])
-        endGame()
         setEndModal(true)
-        setTimesTotal(addTimes(gameTimes))
+        endGame()
 
         return;
       } else
-        setGameTimes((prev) => [...prev, time])
+      setGameTimes((prev) => [...prev, time])
       setRunning(false)
       setGameOver({ gameOver: true, guessedWord: true });
       newGame()
@@ -178,7 +171,6 @@ function App() {
     setAlmostLetters([])
     setGuessesInAttempt([])
     setStreakLimit(0)
-    setBang(false)
     setRunning(false)
   }
 
@@ -216,7 +208,7 @@ function App() {
               <GameTimes class="watches" gameTimes={gameTimes} />
               <Board />
               {endModal &&
-                <Modal gameTimes={gameTimes} timesTotal={timesTotal} setEndModal={setEndModal}/>
+                <Modal gameTimes={gameTimes}  setEndModal={setEndModal} setBang={setBang}/>
               }
               <div class="watches">
                 <StopWatch running={running} time={time} setTime={setTime} />

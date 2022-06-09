@@ -5,7 +5,6 @@ function Letter({ letterPosition, attemptValue }) {
     const { board, correctWord, currentAttempt, disabledLetters, setDisabledLetters, setCorrectLetters, setAlmostLetters, duplicates, guessesInAttempt } = useContext(AppContext)
     const letter = board[attemptValue][letterPosition]
 
-    // console.log(guessesInAttempt)
     let correct = ""
     let almost = ""
     let almostSecond = ""

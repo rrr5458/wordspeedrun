@@ -1,20 +1,30 @@
 import React from 'react'
 import GameTimes from './GameTimes'
 
-function Modal({gameTimes, setEndModal, timesTotal}) {
+function Modal({gameTimes, setEndModal, setBang}) {
+
+    const addTimes = (gameTimes) => {
+        let total = 0
+        gameTimes.map((t) => {
+          total += t
+        })
+        return total
+      }
+
     return (
     <div class="container">
-        {console.log(gameTimes, timesTotal,"MODALLAPS")}
     <div class="cookiesContent" id="cookiesPopup">
         <button class="close">✖</button>
-        <img src="https://cdn-icons-png.flaticon.com/512/1047/1047711.png" alt="cookies-img" />
         <div>
-            <span>{("0" + Math.floor((timesTotal / 60000) % 60)).slice(-2)}:</span>
-            <span>{("0" + Math.floor((timesTotal / 1000) % 60)).slice(-2)}:</span>
-            <span>{("0" + ((timesTotal / 10) % 100)).slice(-2)}</span>
+            <p>Total Time</p>
+            <div>
+                <span>{("0" + Math.floor((addTimes(gameTimes) / 60000) % 60)).slice(-2)}:</span>
+                <span>{("0" + Math.floor((addTimes(gameTimes) / 1000) % 60)).slice(-2)}:</span>
+                <span>{("0" + ((addTimes(gameTimes) / 10) % 100)).slice(-2)}</span>
+            </div>
         </div>
         <GameTimes class="watches" gameTimes={gameTimes} />
-        <button class="accept" onClick={() => setEndModal(false)}>Nother One</button>
+        <button class="accept" onClick={() => {setEndModal(false); setBang(false)}}>Nother One</button>
     </div>
     </div>
     )
