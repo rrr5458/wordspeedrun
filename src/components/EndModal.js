@@ -1,7 +1,7 @@
 import React from 'react'
 import GameTimes from './GameTimes'
 
-function Modal({gameTimes, setEndModal, setBang}) {
+function EndModal({gameTimes, setEndModal, setBang}) {
 
     const addTimes = (gameTimes) => {
         let total = 0
@@ -30,4 +30,4 @@ function Modal({gameTimes, setEndModal, setBang}) {
     )
 }
 
-export default Modal
+export default EndModal

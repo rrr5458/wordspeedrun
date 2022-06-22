@@ -7,8 +7,8 @@ import { boardDefault, generateWordSet } from './components/Words';
 import GameOver from './components/GameOver';
 import StopWatch from './components/StopWatch';
 import GameTimes from './components/GameTimes';
-import StreakSelector from './components/StreakSelector';
-import Modal from './components/Modal';
+import EndModal from './components/EndModal';
+import StreakModal from './components/StreakModal';
 
 
 export const AppContext = createContext();
@@ -32,6 +32,7 @@ function App() {
   const [streakLimit, setStreakLimit] = useState(0)
   const [bang, setBang] = useState(false)
   const [endModal, setEndModal] = useState(false)
+  const [streakModal, setStreakModal] = useState(false)
 
 
   useEffect(() => {
@@ -201,14 +202,17 @@ function App() {
         <nav>
           <div id="empty-space"> </div>
           <h1>Wordle</h1>
-          <StreakSelector setStreakLimit={setStreakLimit} streakLimit={streakLimit} setBang={setBang}/>
+          <button onClick={() => {setStreakModal(true)}}>Play</button>
         </nav>
           <div className="game" >
             <div class="board-watch">
               <GameTimes class="watches" gameTimes={gameTimes} />
               <Board />
               {endModal &&
-                <Modal gameTimes={gameTimes}  setEndModal={setEndModal} setBang={setBang}/>
+                <EndModal gameTimes={gameTimes}  setEndModal={setEndModal} setBang={setBang}/>
+              }
+              {streakModal &&
+                <StreakModal setStreakLimit={setStreakLimit} streakLimit={streakLimit} setBang={setBang} setStreakModal={setStreakModal}/>
               }
               <div class="watches">
                 <StopWatch running={running} time={time} setTime={setTime} />
