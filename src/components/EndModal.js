@@ -12,9 +12,8 @@ function EndModal({gameTimes, setEndModal, setBang}) {
       }
 
     return (
-    <div class="container">
-    <div class="cookiesContent" id="cookiesPopup">
-        <button class="close">✖</button>
+    <div className="container">
+    <div className="end-modal" id="end-popup">
         <div>
             <p>Total Time</p>
             <div>
@@ -23,8 +22,8 @@ function EndModal({gameTimes, setEndModal, setBang}) {
                 <span>{("0" + ((addTimes(gameTimes) / 10) % 100)).slice(-2)}</span>
             </div>
         </div>
-        <GameTimes class="watches" gameTimes={gameTimes} />
-        <button class="accept" onClick={() => {setEndModal(false); setBang(false)}}>Nother One</button>
+        <GameTimes className="watches" gameTimes={gameTimes} />
+        <button className="accept" onClick={() => {setEndModal(false); setBang(false)}}>Nother One</button>
     </div>
     </div>
     )

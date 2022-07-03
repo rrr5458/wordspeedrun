@@ -1,3 +1,5 @@
+@import url('//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css');
+
 .App {
   text-align: center;
   background-color: #121212;
@@ -39,7 +41,6 @@ nav h1 {
 p {
   font-size: 20px;
   background-color: #528d4e;
-  padding: 6;
 }
 .game {
   width: 100vw;
@@ -50,11 +51,9 @@ p {
   flex-direction: column;
 }
 
-.board-watch {
-  display: flex;
-  flex-direction: row;
-  width: 50%;
-  justify-content: space-between;
+.game-grid {
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr;
 }
 .board {
   width: 450px;
@@ -65,8 +64,19 @@ p {
 }
 
 .watches {
+  width: "30%";
   display: flex;
   flex-direction: column;
+}
+
+.numbers {
+  font-size: 30px;
+  font-family: Arial, Helvetica, sans-serif
+}
+
+.times-modals {
+  display: flex;
+  align-items: center;
 }
 
 .row {
@@ -215,30 +225,65 @@ body {
   padding: 30px 30px 70px;
 }
 
+.end-modal {
+  height: 400px;
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff;
+  color: #000;
+  text-align: center;
+  border-radius: 20px;
+  padding: 30px 30px 70px;
+}
+
+#end-popup {
+  position: absolute;
+  display: block;
+  top: 30%;
+  z-index: 100;
+  overflow-x: hidden;
+}
+
+
 button.close {
-    width: 30px;
-    font-size: 20px;
-    color: #c0c5cb;
-    align-self: flex-end;
-    background-color: transparent;
-    border: none;
-    margin-bottom: 10px;
-  }
-  img {
-    width: 82px;
-    margin-bottom: 15px;
-  }
-  p {
-    margin-bottom: 40px;
-    font-size: 18px;
-  }
-  button.accept {
-    background-color: #ed6755;
-    border: none;
-    border-radius: 5px;
-    width: 200px;
-    padding: 14px;
-    font-size: 16px;
-    color: white;
-    box-shadow: 0px 6px 18px -5px rgba(237, 103, 85, 1);
-  }
+  width: 30px;
+  font-size: 20px;
+  color: #c0c5cb;
+  align-self: flex-end;
+  background-color: transparent;
+  border: none;
+  margin-bottom: 10px;
+}
+img {
+  width: 82px;
+  margin-bottom: 15px;
+}
+
+button.accept {
+  background-color: #ed6755;
+  border: none;
+  border-radius: 5px;
+  width: 200px;
+  padding: 14px;
+  font-size: 16px;
+  color: white;
+  box-shadow: 0px 6px 18px -5px rgba(237, 103, 85, 1);
+}
+
+#cookiesPopup {
+  position: fixed;
+  display: block;
+  margin: 0 auto;
+  top: 50%;
+  left: 50%;
+  width: 20%;
+  height: 20%;
+  z-index: 100;
+  overflow-x: hidden;
+}
+
+.toastProgress {
+  background: white !important;
+}
