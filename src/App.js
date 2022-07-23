@@ -9,6 +9,7 @@ import EndModal from "./components/EndModal";
 import StreakModal from "./components/StreakModal";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import LoginModal from "./components/LoginModal";
 
 export const AppContext = createContext();
 
@@ -37,14 +38,15 @@ function App() {
   const [bang, setBang] = useState(false);
   const [endModal, setEndModal] = useState(false);
   const [streakModal, setStreakModal] = useState(false);
+  const [loginModal, setLoginModal] = useState(false)
 
-  const noWord = () => toast("Not in word bank", {position: toast.POSITION.TOP_CENTER});
-  const tooShort = () => toast("No enough letters", {position: toast.POSITION.TOP_CENTER});
+  const noWord = () =>
+    toast("Not in word bank", { position: toast.POSITION.TOP_CENTER });
+  const tooShort = () =>
+    toast("No enough letters", { position: toast.POSITION.TOP_CENTER });
 
   useEffect(() => {
-    console.log(bang);
     if (bang) {
-      console.log(bang, "here?");
       setDisabledLetters([]);
       setBoard([
         ["", "", "", "", ""],
@@ -105,8 +107,8 @@ function App() {
   const onEnter = () => {
     console.log(correctWord);
     if (currentAttempt.letterPosition !== 5) {
-      return tooShort()
-    };
+      return tooShort();
+    }
     let currentWord = "";
     for (let i = 0; i < 5; i++) {
       currentWord += board[currentAttempt.attempt][i];
@@ -211,6 +213,13 @@ function App() {
             <h1>Wordle</h1>
             <button
               onClick={() => {
+                setLoginModal(true);
+              }}
+            >
+              Join the rankings
+            </button>
+            <button
+              onClick={() => {
                 setStreakModal(true);
               }}
             >
@@ -226,6 +235,11 @@ function App() {
                     gameTimes={gameTimes}
                     setEndModal={setEndModal}
                     setBang={setBang}
+                  />
+                )}
+                {loginModal && (
+                  <LoginModal 
+                    setLoginModal={setLoginModal}
                   />
                 )}
                 {streakModal && (
@@ -245,7 +259,12 @@ function App() {
                 />
               </div>
               <div className="watches">
-                <StopWatch position='top-center' running={running} time={time} setTime={setTime} />
+                <StopWatch
+                  position="top-center"
+                  running={running}
+                  time={time}
+                  setTime={setTime}
+                />
               </div>
             </div>
             <Keyboard />
